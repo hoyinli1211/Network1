@@ -41,7 +41,7 @@ if len(selected_acct)==0:
   st.text('Choose at least 1 account to get started')
 else:
   df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
-  df_edge_select = df_node_select.reset_index(drop=True)
+  df_edge_select = df_edge_select.reset_index(drop=True)
   
   #Create networkx graph object from pandas dataframe
   G = nx.from_pandas_edgelist(df_edge_select, 'Org', 'Dest', 'Value')
