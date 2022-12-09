@@ -17,7 +17,7 @@ st.title('Fund Flow Network Visualization using streamlit')
 st.text('This is the first attempt to use PyVis package to perform interactive network visualization in streamlit platform')
 
 #Import template file
-file_temp = 'template.xlsx'
+file_temp = 'Network1.xlsx'
 df_node_temp = pd.read_excel(file_temp, 'node')
 df_edge_temp = pd.read_excel(file_temp, 'edge')
 
