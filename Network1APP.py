@@ -45,7 +45,7 @@ else:
   st.write(df_edge_select)
   #Create networkx graph object from pandas dataframe
   G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
-  net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+  net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True, width='Value')
   # Take Networkx graph and translate it to a PyVis graph format
   net.from_nx(G, show_edge_weights=True)
   # Generate network with specific layout settings
