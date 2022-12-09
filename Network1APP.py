@@ -53,8 +53,8 @@ else:
   
   G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
   durations = [i['Value'] for i in dict(G.edges).values()]
-  #labels = [i for i in dict(G.nodes).keys()]
-  #labels = {i:i for i in dict(G.nodes).keys()}
+  labels = [i for i in dict(G.nodes).keys()]
+  labels = {i:i for i in dict(G.nodes).keys()}
 
   fig, ax = plt.subplots(figsize=(12,5))
   pos = nx.spring_layout(G)
