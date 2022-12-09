@@ -26,12 +26,12 @@ df_node = df_node_temp
 df_edge = df_edge_temp
 
 st.title('Node Data')
-st.write(df_node_temp)
+st.write(df_node)
 st.title('Edge Data')
-st.write(df_edge_temp)
+st.write(df_edge)
 
 #Define list of selection options
-acct_list = df_node_temp['name']
+acct_list = df_node['name']
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
@@ -41,7 +41,7 @@ if len(selected_acct)==0:
   st.text('Choose at least 1 account to get started')
 else:
   df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
-  df_edge_select = df_edge_select.reset_index(drop=True)
+  #df_edge_select = df_edge_select.reset_index(drop=True)
   
   #Create networkx graph object from pandas dataframe
   G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'])
