@@ -44,7 +44,7 @@ else:
   df_edge_select = df_edge_select.reset_index(drop=True)
   
   #Create networkx graph object from pandas dataframe
-  G = nx.from_pandas_edgelist(df_edge_select, 'Org', 'Dest', 'Value')
+  G = nx.from_pandas_edgelist(df_edge_select, 'Orig', 'Dest', 'Value')
   net = Network(height='465px', bgcolor='#222222', font_color='white')
   # Take Networkx graph and translate it to a PyVis graph format
   net.from_nx(G)
