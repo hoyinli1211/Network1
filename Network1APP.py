@@ -32,7 +32,7 @@ st.write(df_edge_temp)
 
 #Define list of selection options
 acct_list = df_node_temp['name']
-acct_list.sort()
+
 #Implement multiselect dropdown menu for option selection (returns a list)
 selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
 
