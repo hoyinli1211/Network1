@@ -45,9 +45,9 @@ selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
 if len(selected_acct)==0:
   st.text('Choose at least 1 account to get started')
 else:
-  if nlayer = 'first layer only':
+  if nlayer == 'first layer only':
     df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
-  elif nlayer = 'first and second layer':
+  elif nlayer == 'first and second layer':
     df_edge_select0 = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
     selected_acct_second = [df_edge_select0['Orig'], df_edge_select0['Dest']]
     st.write(selected_acct_second)
