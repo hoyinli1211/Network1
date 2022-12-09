@@ -28,7 +28,7 @@ df_node = df_node_temp
 df_edge = df_edge_temp
 
 df_edge['weight'] = len(str(df_edge['Amount']))
-df_edge['title'] = df_edge['Orig'] + ' (' + df_edge['Orig.Bank'] + ') transferred HK$' + df_edge['Amount'] + ' to ' + df_edge['Dest'] + ' (' + df_edge['Dest.Bank'] + ')'
+df_edge['title'] = df_edge['Orig'] + ' (' + df_edge['Orig.Bank'] + ') transferred HK$' + "{:0,.2f}".format(float(df_edge['Amount'])) + ' to ' + df_edge['Dest'] + ' (' + df_edge['Dest.Bank'] + ')'
 
 st.title('Node Data')
 st.write(df_node)
