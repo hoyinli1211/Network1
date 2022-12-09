@@ -47,7 +47,8 @@ else:
   G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
   net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   # Take Networkx graph and translate it to a PyVis graph format
-  net.from_nx(G)
+  #net.from_nx(G)
+  nx.draw(G)
   # Generate network with specific layout settings
   net.repulsion(node_distance=420,
                 central_gravity=0.33,
