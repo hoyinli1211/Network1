@@ -8,6 +8,7 @@ import os, sys
 import pandas as pd
 import networkx as nx
 from pyvis.network import Network
+import matplotlib.pyplot as plt
 
 #initialization of session state
 if 'indEnd' not in st.session_state:
