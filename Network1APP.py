@@ -27,7 +27,7 @@ df_edge_temp = pd.read_excel(file_temp, 'edge')
 df_node = df_node_temp
 df_edge = df_edge_temp
 
-df_edge['weight'] = int(math.log10(df_edge['Amount']))+1
+df_edge['weight'] = len(str(df_edge['Amount']))
 df_edge['title'] = df_edge['Orig'] + ' (' + df_edge['Orig.Bank'] + ') transferred HK$' + df_edge['Amount'] + ' to ' + df_edge['Dest'] + ' (' + df_edge['Dest.Bank'] + ')'
 
 st.title('Node Data')
