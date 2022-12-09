@@ -44,14 +44,22 @@ else:
   df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
   #df_edge_select = df_edge_select.reset_index(drop=True)
   st.write(df_edge_select)
+  #attempt1
   #Create networkx graph object from pandas dataframe
-  G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
-  st.write(G)
-  net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+  #G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
+  #net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   # Take Networkx graph and translate it to a PyVis graph format
-  net.from_nx(G)
-  edge_labels = nx.get_edge_attributes(G, 'weight')
-  nx.draw_networkx_edge_labels(G, nx.spring_layout(G, seed=7), edge_labels)
+  #net.from_nx(G)
+  
+  G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
+  durations = [i['Value'] for i in dict(G.edges).values()]
+  #labels = [i for i in dict(G.nodes).keys()]
+  #labels = {i:i for i in dict(G.nodes).keys()}
+
+  fig, ax = plt.subplots(figsize=(12,5))
+  pos = nx.spring_layout(G)
+  nx.draw_networkx_nodes(G, pos, ax = ax, labels=True)
+  nx.draw_networkx_edges(G, pos, width=durations, ax=ax)
   
   # Generate network with specific layout settings
   net.repulsion(node_distance=420,
