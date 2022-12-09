@@ -9,6 +9,7 @@ import pandas as pd
 import networkx as nx
 from pyvis.network import Network
 import matplotlib.pyplot as plt
+import math
 
 #initialization of session state
 if 'indEnd' not in st.session_state:
@@ -25,6 +26,9 @@ df_edge_temp = pd.read_excel(file_temp, 'edge')
 
 df_node = df_node_temp
 df_edge = df_edge_temp
+
+df_edge['weight'] = int(math.log10(df_edge['Amount']))+1
+df_edge['title'] = df_edge['Orig'] + ' (' + df_edge['Orig.Bank'] + ') transferred HK$' + df_edge['Amount'] + ' to ' + df_edge['Dest'] + ' (' + df_edge['Dest.Bank'] + ')'
 
 st.title('Node Data')
 st.write(df_node)
