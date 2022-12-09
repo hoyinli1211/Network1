@@ -28,7 +28,7 @@ df_node = df_node_temp
 df_edge = df_edge_temp
 
 df_edge['weight'] = df_edge.apply (lambda row: len(str(row.Amount)), axis=1)
-#df_edge['title'] = df_edge['Orig'] + ' (' + df_edge['Orig.Bank'] + ') transferred HK$' + str(df_edge['Amount']) + ' to ' + df_edge['Dest'] + ' (' + df_edge['Dest.Bank'] + ')'
+df_edge['title'] = df_edge.apply (lambda row: row.Orig + ' transferred HK$' + str(row.Amount) + ' to ' row.Dest)
 
 st.title('Node Data')
 st.write(df_node)
