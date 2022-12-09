@@ -9,7 +9,7 @@ xlsxwriter
 #Network Visualization
 networkx
 Network
-pyvis.network
+pyvis
 
 #Web scrape
 #selenium==4.2.0
