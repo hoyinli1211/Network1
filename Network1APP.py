@@ -37,7 +37,6 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
-st.write(acct_list)
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
@@ -50,7 +49,7 @@ else:
     df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
   elif nlayer == 'first and second layer':
     df_edge_select0 = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
-    selected_acct_second = [df_edge_select0['Orig'].to_numpy(), df_edge_select0['Dest'].to_numpy()]
+    selected_acct_second = pd.concat(df_edge_select0['Orig'], df_edge_select0['Dest'], axis=1)
     st.write(selected_acct_second)
   else:
     pass
