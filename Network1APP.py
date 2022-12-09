@@ -58,7 +58,7 @@ else:
 
   fig, ax = plt.subplots(figsize=(12,5))
   pos = nx.spring_layout(G)
-  nx.draw_networkx_nodes(G, pos, ax = ax, labels=True)
+  #nx.draw_networkx_nodes(G, pos, ax = ax, labels=True)
   nx.draw_networkx_edges(G, pos, width=durations, ax=ax)
   
   # Generate network with specific layout settings
