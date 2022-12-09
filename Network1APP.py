@@ -44,40 +44,30 @@ else:
   df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
   #df_edge_select = df_edge_select.reset_index(drop=True)
   st.write(df_edge_select)
-  #attempt1
-  #Create networkx graph object from pandas dataframe
-  #G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
-  #net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
-  # Take Networkx graph and translate it to a PyVis graph format
-  #net.from_nx(G)
   
+  #Create networkx graph object from pandas dataframe
   G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['Value'], create_using=nx.DiGraph())
-  durations = [i['Value'] for i in dict(G.edges).values()]
-  labels = [i for i in dict(G.nodes).keys()]
-  labels = {i:i for i in dict(G.nodes).keys()}
-
-  fig, ax = plt.subplots(figsize=(12,5))
-  pos = nx.spring_layout(G)
-  #nx.draw_networkx_nodes(G, pos, ax = ax, labels=True)
-  nx.draw_networkx_edges(G, pos, width=durations, ax=ax)
+  net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+  # Take Networkx graph and translate it to a PyVis graph format
+  net.from_nx(G)
   
   # Generate network with specific layout settings
-  #net.repulsion(node_distance=420,
-  #              central_gravity=0.33,
-  #              spring_length=110,
-  #              spring_strength=0.10,
-  #              damping=0.95)
+  net.repulsion(node_distance=420,
+                central_gravity=0.33,
+                spring_length=110,
+                spring_strength=0.10,
+                damping=0.95)
   # Save and read graph as HTML file (on Streamlit Sharing)
-  #try:
-  #  path = '/tmp'
-  #  net.save_graph(f'pyvis_graph.html')
-  #  HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+  try:
+    path = '/tmp'
+    net.save_graph(f'pyvis_graph.html')
+    HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
 
   # Save and read graph as HTML file (locally)
-  #except:
-  #  path = '/html_files'
-  #  net.save_graph(f'pyvis_graph.html')
-  #  HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+  except:
+    path = '/html_files'
+    net.save_graph(f'pyvis_graph.html')
+    HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
 
   # Load HTML file in HTML component for display on Streamlit page
   #components.html(HtmlFile.read(), height=435)
