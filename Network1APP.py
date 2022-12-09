@@ -49,6 +49,8 @@ else:
   net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   # Take Networkx graph and translate it to a PyVis graph format
   net.from_nx(G)
+  edge_labels = nx.get_edge_attributes(G, 'weight')
+  nx.draw_networkx_edge_labels(G, nx.spring_layout(G, seed=7), edge_labels)
   
   # Generate network with specific layout settings
   net.repulsion(node_distance=420,
