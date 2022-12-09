@@ -62,22 +62,22 @@ else:
   nx.draw_networkx_edges(G, pos, width=durations, ax=ax)
   
   # Generate network with specific layout settings
-  net.repulsion(node_distance=420,
-                central_gravity=0.33,
-                spring_length=110,
-                spring_strength=0.10,
-                damping=0.95)
+  #net.repulsion(node_distance=420,
+  #              central_gravity=0.33,
+  #              spring_length=110,
+  #              spring_strength=0.10,
+  #              damping=0.95)
   # Save and read graph as HTML file (on Streamlit Sharing)
-  try:
-    path = '/tmp'
-    net.save_graph(f'pyvis_graph.html')
-    HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+  #try:
+  #  path = '/tmp'
+  #  net.save_graph(f'pyvis_graph.html')
+  #  HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
 
   # Save and read graph as HTML file (locally)
-  except:
-    path = '/html_files'
-    net.save_graph(f'pyvis_graph.html')
-    HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+  #except:
+  #  path = '/html_files'
+  #  net.save_graph(f'pyvis_graph.html')
+  #  HtmlFile = open(f'pyvis_graph.html', 'r', encoding='utf-8')
 
   # Load HTML file in HTML component for display on Streamlit page
-  components.html(HtmlFile.read(), height=435)
+  #components.html(HtmlFile.read(), height=435)
