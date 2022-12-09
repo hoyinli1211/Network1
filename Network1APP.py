@@ -61,7 +61,8 @@ else:
   st.write(df_edge_select)
   
   #Create networkx graph object from pandas dataframe
-  G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', node_attr=['color'], edge_attr=['weight', 'title'], create_using=nx.DiGraph())
+  G = nx.from_pandas_edgelist(df=df_edge_select, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
+  nx.set_node_attributes(G, color, 'color')
   net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   # Take Networkx graph and translate it to a PyVis graph format
   net.from_nx(G)
