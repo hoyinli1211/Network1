@@ -48,7 +48,7 @@ else:
   st.write(G)
   net = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   # Take Networkx graph and translate it to a PyVis graph format
-  net.from_nx(G)
+  net.from_nx(G, a=1)
   
   # Generate network with specific layout settings
   net.repulsion(node_distance=420,
