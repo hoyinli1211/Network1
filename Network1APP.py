@@ -37,6 +37,7 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
+st.write(acct_list)
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
