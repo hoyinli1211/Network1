@@ -50,7 +50,7 @@ else:
   elif nlayer == 'first and second layer':
     df_edge_select0 = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
     selected_acct_second = pd.concat([df_edge_select0['Orig'], df_edge_select0['Dest']], axis=0).drop_duplicates()
-    st.write(selected_acct_second)
+    df_edge_select = df_edge.loc[df_edge['Orig'].isin(selected_acct_second) | df_edge['Dest'].isin(selected_acct_second)]
   else:
     pass
   #df_edge_select = df_edge_select.reset_index(drop=True)
