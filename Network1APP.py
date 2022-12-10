@@ -39,7 +39,7 @@ df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']],
                     axis=0).drop_duplicates().rename('name').to_frame().reset_index()
 
-st.title('Edge Data')
+st.title('Transaction Data')
 st.write(df_edge)
 
 #Define show first layer only, or second layer as well
