@@ -109,11 +109,11 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   secondlayer_onus_acct = pd.concat([df_edge_secondlayer.loc[df_edge_secondlayer['Orig.Bank']=='on-us']['Orig'].drop_duplicates(),
                          df_edge_secondlayer.loc[df_edge_secondlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
   secondlayer_onus_acct = secondlayer_onus_acct.tolist()
-  secondlayer_new_onus_acct = list(set(secondlayer_onus_acct)-set(firstlayer_acct))
+  secondlayer_new_onus_acct = list(set(secondlayer_onus_acct)-set(firstlayer_onus_acct))
   st.title('2. Indirect Transaction(s) with selected subject(s)')
   newonusN_3 = len(secondlayer_new_onus_acct)
   st.write(type(secondlayer_new_onus_acct))
-  remarks32 = str(newonusN_3) + ' additional customer(s) were identified [' + ','.join(secondlayer_new_onus_acct) + ']'
+  remarks3 = str(newonusN_3) + ' additional customer(s) were identified [' + ','.join(secondlayer_new_onus_acct) + ']'
   st.write(remarks3)
   st.write(df_edge_secondlayer)
   G3 = nx.from_pandas_edgelist(df_edge_secondlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
