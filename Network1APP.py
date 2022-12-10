@@ -64,9 +64,12 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   #Transactions only involve first layer subjects
   firstlayer_offus_acct = selected_offus_acct
   firstlayer_acct = firstlayer_onus_acct + firstlayer_offus_acct
+  df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) & df_edge['Dest'].isin(firstlayer_acct)]
+  st.head('Fraudulent transaction(s) involved selected on-us and off-us account(s)')
+  st.write(df_edge_fraud)
+  
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
   
-  st.write(df_edge_firstlayer)
   #Transactions only involve second layer subjects
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_secondlayer = df_edge.loc[df_edge['Orig'].isin(secondlayer_acct) | df_edge['Dest'].isin(secondlayer_acct)]
