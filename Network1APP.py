@@ -58,8 +58,9 @@ selected_offus_acct = st.multiselect('Select off-us acct(s) to visualize', offus
 
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
-else:
+elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   firstlayer_onus_acct = selected_onus_acct
+  st.write(type(firstlayer_onus_acct))
   firstlayer_offus_acct = selected_offus_acct
   firstlayer_acct = [firstlayer_onus_acct, firstlayer_offus_acct]
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
@@ -68,15 +69,17 @@ else:
     
   #df_edge_1stlayer = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
   if nlayer == 'first layer only':
-    st.write(firstlayer_acct)
-    st.write(df_edge_firstlayer)
-    st.write(secondlayer_acct)
+    #st.write(firstlayer_acct)
+    #st.write(df_edge_firstlayer)
+    #st.write(secondlayer_acct)
   elif nlayer == 'with second layer':
     ''
   elif nlayer == 'with third layer':
     ''
   else:
     ''
+ else:
+  pass
    
 """
 #Set info message on initial site load
