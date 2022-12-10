@@ -88,9 +88,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   st.write(df_edge_firstlayer)
   G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
   st.write(G2.nodes)
-  color_G2node = ['blue', 'red', 'red', 'orange', 'blue', 'blue', 'orange']
-  G2 = nx.set_node_attributes(G2, color_G2node, 'node_color')
-  net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True, node_color='red')
+  net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   net2.from_nx(G2)
   net2.save_graph(f'pyvis_graph.html')
   HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
