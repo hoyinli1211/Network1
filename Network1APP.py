@@ -72,6 +72,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     #st.write(firstlayer_acct)
     #st.write(df_edge_firstlayer)
     #st.write(secondlayer_acct)
+    ''
   elif nlayer == 'with second layer':
     ''
   elif nlayer == 'with third layer':
