@@ -92,7 +92,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   G2 = nx.set_node_attributes(G2, color_G2node, 'node_color')
   st.write(G2.nodes)
   st.write(G2.nodes['node_color'])
-  net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+  net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True, node_color='red')
   net2.from_nx(G2)
   net2.save_graph(f'pyvis_graph.html')
   HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
