@@ -89,7 +89,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
   st.write(G2.nodes)
   color_G2node = ['blue', 'red', 'red', 'orange', 'blue', 'blue', 'orange']
-  nx.set_node_attributes(G2, color_G2node, 'node_color')
+  G2 = nx.set_node_attributes(G2, color_G2node, 'node_color')
+  st.write(G2.nodes)
   st.write(G2.nodes['node_color'])
   net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   net2.from_nx(G2)
