@@ -32,7 +32,7 @@ df_edge['title'] = df_edge.apply (lambda row: row.Orig + ' transferred HK$' + st
 
 df_onus = pd.concat([df_edge.loc[df_edge['Orig.Bank']=='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']=='on-us']['Dest']]
-                    , axis=1).drop_duplicates()
+                    , axis=0).drop_duplicates()
 st.write(df_onus)
 
 st.title('Node Data')
