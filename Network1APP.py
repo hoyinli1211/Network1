@@ -38,8 +38,6 @@ df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']]
                     , axis=0).drop_duplicates()
 
-st.write(df_offus)
-
 st.title('Node Data')
 st.write(df_node)
 st.title('Edge Data')
@@ -59,9 +57,27 @@ offus_list = df_offus.iloc[:, 0]
 selected_onus_acct = st.multiselect('Select on-us acct(s) to visualize', onus_list)
 selected_offus_acct = st.multiselect('Select on-us acct(s) to visualize', offus_list)
 
-
-
-
+if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
+  st.text('Choose at least 1 onus/offus account to get started.')
+else:
+  firstlayer_onus_acct = selected_onus_acct
+  firstlayer_offus_acct = selected_offus_acct
+  firstlayer_acct = [firstlayer_onus_acct, firstlayer_offus_acct]
+  df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
+  
+  secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], axis=0).drop_duplicates()
+    
+  #df_edge_1stlayer = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
+  if nlayer == 'first layer only':
+    st.write(firstlayer_acct)
+    st.write(df_edge_firstlayer)
+    st.write(secondlayer_acct)
+  elif nlayer == 'with second layer':
+  elif nlayer == "with third layer":
+  else:
+    ''
+   
+"""
 #Set info message on initial site load
 if len(selected_acct)==0:
   st.text('Choose at least 1 account to get started')
@@ -104,3 +120,4 @@ else:
 
   # Load HTML file in HTML component for display on Streamlit page
   components.html(HtmlFile.read(), height=435)
+"""
