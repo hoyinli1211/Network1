@@ -34,8 +34,7 @@ df_edge['title'] = df_edge.apply (lambda row: row.Orig + ' transferred HK$' + st
 df_onus = pd.concat([df_edge.loc[df_edge['Orig.Bank']=='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']=='on-us']['Dest']],
                     ignore_index=True,
-                    axis=0).drop_duplicates()
-st.write(df_onus.columns)
+                    axis=0).drop_duplicates().rename('name')
 
 df_offus = pd.concat(([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']], s.rename('name')),
