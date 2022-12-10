@@ -41,10 +41,9 @@ df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     ignore_index=True,
                     axis=0).drop_duplicates()
 
-st.title('Node Data')
-st.write(df_node)
 st.title('Edge Data')
 st.write(df_edge)
+st.write(df_onus)
 
 #Define show first layer only, or second layer as well
 nlayer = st.radio("Number of layer",
