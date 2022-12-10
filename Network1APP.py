@@ -131,15 +131,6 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   thirdlayer_acct = pd.concat([df_edge_secondlayer['Orig'], df_edge_secondlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_thirdlayer = df_edge.loc[df_edge['Orig'].isin(thirdlayer_acct) | df_edge['Dest'].isin(thirdlayer_acct)]
   
-  #df_edge_1stlayer = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
-  if nlayer == 'first layer only':
-    df_edge_select = df_edge_firstlayer
-  elif nlayer == 'with second layer':
-    df_edge_select = df_edge_secondlayer
-  elif nlayer == 'with third layer':
-    df_edge_select = df_edge_thirdlayer
-  else:
-    ''
 else:
   pass
    
