@@ -90,7 +90,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   st.write(G2.nodes)
   net21= nx.draw(G2, with_labels=True)
   net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
-  net2.from_nx(G2)
+  net21.from_nx(G2)
   net21.save_graph(f'pyvis_graph.html')
   HtmlFile21 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
   components.html(HtmlFile21.read(), height=435)
