@@ -91,9 +91,9 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   net21= nx.draw(G2, with_labels=True)
   net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
   net2.from_nx(G2)
-  net2.save_graph(f'pyvis_graph.html')
-  HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
-  components.html(HtmlFile2.read(), height=435)
+  net21.save_graph(f'pyvis_graph.html')
+  HtmlFile21 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+  components.html(HtmlFile21.read(), height=435)
   
   #Transactions only involve second layer subjects
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
