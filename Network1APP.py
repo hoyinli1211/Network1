@@ -51,9 +51,16 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
+onus_list = df_onus.iloc[:, 0]
+offus_list = df_offus.iloc[:, 0]
 
 #Implement multiselect dropdown menu for option selection (returns a list)
-selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
+#selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
+selected_onus_acct = st.multiselect('Select on-us acct(s) to visualize', onus_list)
+selected_offus_acct = st.multiselect('Select on-us acct(s) to visualize', offus_list)
+
+
+
 
 #Set info message on initial site load
 if len(selected_acct)==0:
