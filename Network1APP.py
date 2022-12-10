@@ -69,9 +69,9 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     
   #df_edge_1stlayer = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
   if nlayer == 'first layer only':
-    #st.write(firstlayer_acct)
-    #st.write(df_edge_firstlayer)
-    #st.write(secondlayer_acct)
+    st.write(firstlayer_acct)
+    st.write(df_edge_firstlayer)
+    st.write(secondlayer_acct)
     ''
   elif nlayer == 'with second layer':
     ''
