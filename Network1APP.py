@@ -50,7 +50,7 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
-onus_list = df_onus[:, 0]
+onus_list = df_onus.iloc[:, 0]
 offus_list = df_offus
 
 #Implement multiselect dropdown menu for option selection (returns a list)
