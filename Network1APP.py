@@ -65,6 +65,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   firstlayer_offus_acct = selected_offus_acct
   firstlayer_acct = firstlayer_onus_acct + firstlayer_offus_acct
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
+  
+  st.write(df_edge_firstlayer)
   #Transactions only involve second layer subjects
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_secondlayer = df_edge.loc[df_edge['Orig'].isin(secondlayer_acct) | df_edge['Dest'].isin(secondlayer_acct)]
@@ -74,14 +76,11 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   
   #df_edge_1stlayer = df_edge.loc[df_edge['Orig'].isin(selected_acct) | df_edge['Dest'].isin(selected_acct)]
   if nlayer == 'first layer only':
-    st.write(firstlayer_acct)
-    st.write(secondlayer_acct)
-    st.write(thirdlayer_acct)
-    ''
+    df_edge_select = df_edge_firstlayer
   elif nlayer == 'with second layer':
-    ''
+    df_edge_select = df_edge_secondlayer
   elif nlayer == 'with third layer':
-    ''
+    df_edge_select = df_edge_thirdlayer
   else:
     ''
 else:
