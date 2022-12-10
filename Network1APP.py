@@ -65,7 +65,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   firstlayer_offus_acct = selected_offus_acct
   firstlayer_acct = firstlayer_onus_acct + firstlayer_offus_acct
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) & df_edge['Dest'].isin(firstlayer_acct)]
-  st.head('Fraudulent transaction(s) involved selected on-us and off-us account(s)')
+  st.title('Fraudulent transaction(s) involved selected on-us and off-us account(s)')
   st.write(df_edge_fraud)
   
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
