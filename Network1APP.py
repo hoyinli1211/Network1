@@ -33,12 +33,12 @@ df_edge['title'] = df_edge.apply (lambda row: row.Orig + ' transferred HK$' + st
 df_onus = pd.concat([df_edge[df_edge['Orig.Bank']=='on-us']['Orig'],
                     df_edge[df_edge['Dest.Bank']=='on-us']['Dest']]
                     , axis=1).drop_duplicates()
-st.write(df_ons)
+st.write(df_onus)
 
 df_offus = pd.concat([df_edge[df_edge['Orig.Bank']!='on-us']['Orig'],
                     df_edge[df_edge['Dest.Bank']!='on-us']['Dest']]
                     , axis=1).drop_duplicates()
-st.write(df_offs)
+st.write(df_offus)
 
 st.title('Node Data')
 st.write(df_node)
