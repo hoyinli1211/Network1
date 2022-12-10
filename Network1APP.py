@@ -103,9 +103,30 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
   components.html(HtmlFile2.read(), height=435)
   
-  #Transactions only involve second layer subjects
+  #Expand 1 further layer
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_secondlayer = df_edge.loc[df_edge['Orig'].isin(secondlayer_acct) | df_edge['Dest'].isin(secondlayer_acct)]
+  secondlayer_onus_acct = pd.concat([df_edge_secondlayer.loc[df_edge_secondlayer['Orig.Bank']=='on-us']['Orig'].drop_duplicates(),
+                         df_edge_secondlayer.loc[df_edge_secondlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
+  secondlayer_onus_acct = secondlayer_onus_acct.tolist()
+  secondlayer_new_onus_acct = list(set(secondlayer_onus_acct)-set(firstlayer_acct))
+  st.title('2. Indirect Transaction(s) with selected subject(s)')
+  newonusN_3 = len(secondlayer_new_onus_acct)
+  st.write(type(secondlayer_new_onus_acct))
+  remarks32 = str(newonusN_3) + ' additional customer(s) were identified [' + ','.join(secondlayer_new_onus_acct) + ']'
+  st.write(remarks3)
+  st.write(df_edge_secondlayer)
+  G3 = nx.from_pandas_edgelist(df_edge_secondlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
+  #nx.set_node_attributes(G2, dict(G2.degree), 'size')
+  nx.set_node_attributes(G3, pd.Series(['blue','red','red','orange','blue','blue','orange']).to_dict(), 'color')
+  st.write(G3.nodes)
+  net3 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+  net3.from_nx(G3)
+  net3.save_graph(f'pyvis_graph.html')
+  HtmlFile3 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+  components.html(HtmlFile3.read(), height=435)
+  
+  
   #Transactions only involve third layer subjects
   thirdlayer_acct = pd.concat([df_edge_secondlayer['Orig'], df_edge_secondlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_thirdlayer = df_edge.loc[df_edge['Orig'].isin(thirdlayer_acct) | df_edge['Dest'].isin(thirdlayer_acct)]
