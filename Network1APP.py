@@ -77,8 +77,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   #Expand 1 layer
   firstlayer_acct = fraudlayer_acct
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
-  firstlayer_onus_acct = df_edge_firstlayer.loc[df_edge_firstlayer['Orig.Bank']=='on-us']['Orig'].drop_duplicates().squeeze() +
-                         df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates().squeeze()
+  firstlayer_onus_acct = pd.concat([df_edge_firstlayer.loc[df_edge_firstlayer['Orig.Bank']=='on-us']['Orig'].drop_duplicates(),
+                         df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0)
   st.write(firstlayer_onus_acct)
   st.title('Direct Transaction(s) with selected subject(s)')
   st.write(df_edge_firstlayer)
