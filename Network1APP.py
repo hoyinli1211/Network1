@@ -86,6 +86,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   #st.write(firstlayer_new_onus_acct)
   st.title('Direct Transaction(s) with selected subject(s)')
   st.write(df_edge_firstlayer)
+  st.write(G2.nodes)
   G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
   G2 = nx.set_node_attributes(G2, dict(G2.degree), 'size')
   G2 = nx.set_node_attributes(G2, ['blue','red','red','orange','blue','blue','orange'], 'node_color')
