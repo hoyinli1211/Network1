@@ -36,10 +36,10 @@ df_onus = pd.concat([df_edge.loc[df_edge['Orig.Bank']=='on-us']['Orig'],
                     ignore_index=True,
                     axis=0).drop_duplicates().rename('name')
 
-df_offus = pd.concat(([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
-                    df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']], s.rename('name')),
+df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
+                    df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']],
                     ignore_index=True,
-                    axis=0).drop_duplicates()
+                    axis=0).drop_duplicates().rename('name')
 
 st.title('Edge Data')
 st.write(df_edge)
@@ -52,8 +52,8 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
-onus_list = df_onus.iloc[:, 0]
-offus_list = df_offus
+onus_list = df_onus['name']
+offus_list = df_offus['name']
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 #selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
