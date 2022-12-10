@@ -43,8 +43,8 @@ st.title('Edge Data')
 st.write(df_edge)
 
 #Define show first layer only, or second layer as well
-nlayer = st.radio("Number of layer",
-                 ('first layer only', 'with second layer'))
+#nlayer = st.radio("Number of layer",
+#                 ('first layer only', 'with second layer'))
 
 #Define list of selection options
 acct_list = df_node['name']
