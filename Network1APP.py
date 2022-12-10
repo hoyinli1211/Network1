@@ -65,7 +65,12 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   st.write(type(fraudlayer_acct))
   
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
-  st.title('Fraudulent transaction(s) involved selected on-us and off-us account(s)')
+  st.title('1. Fraudulent transaction(s) involved selected on-us and off-us account(s)')
+  onusN_1 = len(selected_onus_acct)
+  offusN_1 = len(selected_offus_acct)
+  amt_1 = df_edge_fraud['Amount'].sum()
+  remarks_1 = onusN_1 + ' on-us customers had payment(s) to/from ' + offusN_1 + ' off-us customers amounting HK$' + amt_1
+  st.text(remarks_1)
   st.write(df_edge_fraud)
   G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
   net1 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
@@ -83,8 +88,10 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   firstlayer_onus_acct = firstlayer_onus_acct.tolist()
   #st.write(type(firstlayer_onus_acct))
   firstlayer_new_onus_acct = list(set(firstlayer_onus_acct)-set(fraudlayer_acct))
+  
   #st.write(firstlayer_new_onus_acct)
-  st.title('Direct Transaction(s) with selected subject(s)')
+  st.title('2. Direct Transaction(s) with selected subject(s)')
+  
   st.write(df_edge_firstlayer)
   G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
   #nx.set_node_attributes(G2, dict(G2.degree), 'size')
