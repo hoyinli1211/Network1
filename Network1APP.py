@@ -62,6 +62,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   #st.write(type(firstlayer_onus_acct))
   #Transactions only involve between two selected subjects
   fraudlayer_acct = selected_onus_acct + selected_offus_acct
+  st.write(type(fraudlayer_acct))
   
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
   st.title('Fraudulent transaction(s) involved selected on-us and off-us account(s)')
