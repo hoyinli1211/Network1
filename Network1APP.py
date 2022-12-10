@@ -50,7 +50,6 @@ nlayer = st.radio("Number of layer",
 acct_list = df_node['name']
 onus_list = df_onus['name']
 offus_list = df_offus['name']
-st.write(offus_list.sort())
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 #selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
