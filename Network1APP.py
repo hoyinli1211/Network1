@@ -92,7 +92,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   #st.write(firstlayer_new_onus_acct)
   st.title('2. Direct Transaction(s) with selected subject(s)')
   newonusN_2 = len(firstlayer_new_onus_acct)
-  remarks2 = newonusN_2 + ' additional customer(s) were identified [' + ','.join(firstlayer_new_onus_acct) + ']'
+  remarks2 = str(newonusN_2) + ' additional customer(s) were identified [' + ','.join(firstlayer_new_onus_acct) + ']'
   st.write(df_edge_firstlayer)
   st.write(remarks2)
   G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
