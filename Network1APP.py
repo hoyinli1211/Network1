@@ -70,7 +70,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   offusN_1 = len(selected_offus_acct)
   amt_1 = df_edge_fraud['Amount'].sum()
   remarks_1 = str(onusN_1) + ' on-us customers had payment(s) to/from ' + str(offusN_1) + ' off-us customers amounting HK$' + str(amt_1)
-  st.text(remarks_1)
+  st.write(remarks_1)
   st.write(df_edge_fraud)
   G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
   net1 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
