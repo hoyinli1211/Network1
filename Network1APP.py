@@ -59,13 +59,11 @@ selected_offus_acct = st.multiselect('Select off-us acct(s) to visualize', offus
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
 elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
-  firstlayer_onus_acct = selected_onus_acct
   #st.write(type(firstlayer_onus_acct))
   #Transactions only involve between two selected subjects
-  firstlayer_offus_acct = selected_offus_acct
-  firstlayer_acct = firstlayer_onus_acct + firstlayer_offus_acct
+  fraudlayer_acct = selected_onus_acct + selected_offus_acct
   
-  df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) & df_edge['Dest'].isin(firstlayer_acct)]
+  df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
   st.title('Fraudulent transaction(s) involved selected on-us and off-us account(s)')
   st.write(df_edge_fraud)
   G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
@@ -78,6 +76,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   
   #Expand 1 layer
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
+  firstlayer_onus_acct = df_edge_firstlayer.loc[df_edge_firstlayer['Orig']=='on-us']['Orig']
+  st.write(firstlayer_onus_acct)
   st.title('Direct Transaction(s) with selected subject(s)')
   st.write(df_edge_firstlayer)
   G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
