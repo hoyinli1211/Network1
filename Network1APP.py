@@ -87,7 +87,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
                          df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
   firstlayer_onus_acct = firstlayer_onus_acct.tolist()
   #st.write(type(firstlayer_onus_acct))
-  firstlayer_new_onus_acct = list(set(firstlayer_onus_acct)-set(fraudlayer_acct)).sort()
+  firstlayer_new_onus_acct = list(set(firstlayer_onus_acct)-set(fraudlayer_acct)).sort().tolist()
   st.write(type(firstlayer_new_onus_acct))
   #st.write(firstlayer_new_onus_acct)
   st.title('2. Direct Transaction(s) with selected subject(s)')
