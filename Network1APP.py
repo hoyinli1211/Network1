@@ -60,9 +60,9 @@ if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
 elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   firstlayer_onus_acct = selected_onus_acct
-  st.write(type(firstlayer_onus_acct))
+  #st.write(type(firstlayer_onus_acct))
   firstlayer_offus_acct = selected_offus_acct
-  firstlayer_acct = [firstlayer_onus_acct, firstlayer_offus_acct]
+  firstlayer_acct = [].append(firstlayer_onus_acct).append(firstlayer_offus_acct)
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
   
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], axis=0).drop_duplicates()
