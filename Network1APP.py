@@ -79,7 +79,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     ''
   else:
     ''
- else:
+else:
   pass
    
 """
