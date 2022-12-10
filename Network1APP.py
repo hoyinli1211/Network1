@@ -79,6 +79,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   df_edge_firstlayer = df_edge.loc[df_edge['Orig'].isin(firstlayer_acct) | df_edge['Dest'].isin(firstlayer_acct)]
   firstlayer_onus_acct = pd.concat([df_edge_firstlayer.loc[df_edge_firstlayer['Orig.Bank']=='on-us']['Orig'].drop_duplicates(),
                          df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
+  firstlayer_new_onus_acct = firstlayer_onus_acct.loc[firstlayer_onus_acct['name'] not in firstlayer_acct]
   st.write(firstlayer_onus_acct)
   st.title('Direct Transaction(s) with selected subject(s)')
   st.write(df_edge_firstlayer)
