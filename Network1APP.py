@@ -40,9 +40,7 @@ df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     axis=0).drop_duplicates().rename('name').to_frame().reset_index()
 
 st.title('Edge Data')
-st.write(df_node)
-st.write(df_onus)
-st.write(df_offus)
+st.write(df_edge)
 
 #Define show first layer only, or second layer as well
 nlayer = st.radio("Number of layer",
@@ -50,11 +48,8 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
-st.write(type(acct_list))
 onus_list = df_onus['name']
-st.write(type(onus_list))
 offus_list = df_offus['name']
-st.write(type(offus_list))
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 #selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
