@@ -49,13 +49,13 @@ nlayer = st.radio("Number of layer",
 
 #Define list of selection options
 acct_list = df_node['name']
-onus_list = df_onus
+onus_list = df_onus[:, 0]
 offus_list = df_offus
 
 #Implement multiselect dropdown menu for option selection (returns a list)
 #selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
 selected_onus_acct = st.multiselect('Select on-us acct(s) to visualize', onus_list)
-selected_offus_acct = st.multiselect('Select on-us acct(s) to visualize', offus_list)
+selected_offus_acct = st.multiselect('Select off-us acct(s) to visualize', offus_list)
 
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
