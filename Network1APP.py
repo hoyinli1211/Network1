@@ -57,12 +57,12 @@ selected_onus_acct = st.multiselect('Select on-us acct(s) to visualize', onus_li
 selected_offus_acct = st.multiselect('Select off-us acct(s) to visualize', offus_list, ['V001'])
 
 #Amount threshold slider
-threshold_amt = st.slider(label='Transaction amount minimum threshold', 
+threshold_amt = st.slider(label='Transaction amount minimum threshold (inclusive >=)', 
                           min_value=0, 
                           max_value=100000,
                           value=1,
                          step=100)
-df_edge = df_edge.loc[df_edge['Amount']>threshold_amt]
+df_edge = df_edge.loc[df_edge['Amount']>=threshold_amt]
 
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
