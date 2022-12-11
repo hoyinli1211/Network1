@@ -66,9 +66,9 @@ df_edge = df_edge.loc[df_edge['Amount']>=threshold_amt]
 
 #Task Radio button
 taskRadio = st.radio(label='Area of interest',
-                    ['1. Transaction(s) involved selected subject(s) only',
-                    '2. Direct Transaction(s) with selected subject(s)',
-                    '3. Indirect Transaction(s) with selected subject(s) - first layer expand'])
+                    options = ['1. Transaction(s) involved selected subject(s) only',
+                                '2. Direct Transaction(s) with selected subject(s)',
+                                '3. Indirect Transaction(s) with selected subject(s) - first layer expand'])
 
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
