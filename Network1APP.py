@@ -64,29 +64,22 @@ threshold_amt = st.slider(label='Transaction amount minimum threshold (inclusive
                          step=100)
 df_edge = df_edge.loc[df_edge['Amount']>=threshold_amt]
 
+#Task Radio button
+taskRadio = st.radio(label='Area of interest',
+                    ['1. Transaction(s) involved selected subject(s) only',
+                     '2. Direct Transaction(s) with selected subject(s)',
+                     '3. Indirect Transaction(s) with selected subject(s) - first layer expand'])
+
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
 elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
-  #st.write(type(firstlayer_onus_acct))
   #Transactions only involve between two selected subjects
   fraudlayer_acct = selected_onus_acct + selected_offus_acct
-  st.write(type(fraudlayer_acct))
-  
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
-  st.title('1. Fraudulent transaction(s) involved selected on-us and off-us account(s)')
   onusN_1 = len(selected_onus_acct)
   offusN_1 = len(selected_offus_acct)
   amt_1 = df_edge_fraud['Amount'].sum()
   remarks_1 = str(onusN_1) + ' [' + ','.join(selected_onus_acct) + '] on-us customer(s) had payment(s) to/from ' + str(offusN_1) + ' [' + ','.join(selected_offus_acct) + '] off-us customer(s) amounting HK$' + str(amt_1)
-  st.write(remarks_1)
-  st.write(df_edge_fraud)
-  G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
-  net1 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
-  # Take Networkx graph and translate it to a PyVis graph format
-  net1.from_nx(G1)
-  net1.save_graph(f'pyvis_graph.html')
-  HtmlFile1 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
-  components.html(HtmlFile1.read(), height=435)
   
   #Expand 1 layer
   firstlayer_acct = fraudlayer_acct
@@ -95,22 +88,9 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
                          df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
   firstlayer_onus_acct = firstlayer_onus_acct.tolist()
   firstlayer_new_onus_acct = list(set(firstlayer_onus_acct)-set(fraudlayer_acct))
-  st.title('2. Direct Transaction(s) with selected subject(s)')
   newonusN_2 = len(firstlayer_new_onus_acct)
-  st.write(type(firstlayer_new_onus_acct))
   remarks2 = str(newonusN_2) + ' additional customer(s) were identified [' + ','.join(firstlayer_new_onus_acct) + ']'
-  st.write(remarks2)
-  st.write(df_edge_firstlayer)
-  G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
-  #nx.set_node_attributes(G2, dict(G2.degree), 'size')
-  nx.set_node_attributes(G2, pd.Series(['blue','red','red','orange','blue','blue','orange']).to_dict(), 'color')
-  st.write(G2.nodes)
-  net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
-  net2.from_nx(G2)
-  net2.save_graph(f'pyvis_graph.html')
-  HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
-  components.html(HtmlFile2.read(), height=435)
-  
+
   #Expand 1 further layer
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_secondlayer = df_edge.loc[df_edge['Orig'].isin(secondlayer_acct) | df_edge['Dest'].isin(secondlayer_acct)]
@@ -118,23 +98,49 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
                          df_edge_secondlayer.loc[df_edge_secondlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
   secondlayer_onus_acct = secondlayer_onus_acct.tolist()
   secondlayer_new_onus_acct = list(set(secondlayer_onus_acct)-set(firstlayer_onus_acct))
-  st.title('2. Indirect Transaction(s) with selected subject(s)')
   newonusN_3 = len(secondlayer_new_onus_acct)
-  st.write(type(secondlayer_new_onus_acct))
   remarks3 = str(newonusN_3) + ' additional customer(s) were identified [' + ','.join(secondlayer_new_onus_acct) + ']'
-  st.write(remarks3)
-  st.write(df_edge_secondlayer)
-  G3 = nx.from_pandas_edgelist(df_edge_secondlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
-  #nx.set_node_attributes(G2, dict(G2.degree), 'size')
-  nx.set_node_attributes(G3, pd.Series(['blue','red','red','orange','blue','blue','orange']).to_dict(), 'color')
-  st.write(G3.nodes)
-  net3 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
-  net3.from_nx(G3)
-  net3.save_graph(f'pyvis_graph.html')
-  HtmlFile3 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
-  components.html(HtmlFile3.read(), height=435)
   
-  
+  if taskRadio = '1. Transaction(s) involved selected subject(s) only':
+    st.title('1. Fraudulent transaction(s) involved selected on-us and off-us account(s)')
+    st.write(remarks_1)
+    st.write(df_edge_fraud)
+    G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
+    net1 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+    # Take Networkx graph and translate it to a PyVis graph format
+    net1.from_nx(G1)
+    net1.save_graph(f'pyvis_graph.html')
+    HtmlFile1 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+    components.html(HtmlFile1.read(), height=435)
+  elif taskRadio = '2. Direct Transaction(s) with selected subject(s)':
+    st.title('2. Direct Transaction(s) with selected subject(s)')
+    st.write(remarks2)
+    st.write(df_edge_firstlayer)
+    G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
+    #nx.set_node_attributes(G2, dict(G2.degree), 'size')
+    nx.set_node_attributes(G2, pd.Series(['blue','red','red','orange','blue','blue','orange']).to_dict(), 'color')
+    st.write(G2.nodes)
+    net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+    net2.from_nx(G2)
+    net2.save_graph(f'pyvis_graph.html')
+    HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+    components.html(HtmlFile2.read(), height=435)
+  elif taskRadio = '3. Indirect Transaction(s) with selected subject(s) - first layer expand':
+    st.title('2. Indirect Transaction(s) with selected subject(s)')
+    st.write(remarks3)
+    st.write(df_edge_secondlayer)
+    G3 = nx.from_pandas_edgelist(df_edge_secondlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
+    #nx.set_node_attributes(G2, dict(G2.degree), 'size')
+    nx.set_node_attributes(G3, pd.Series(['blue','red','red','orange','blue','blue','orange']).to_dict(), 'color')
+    st.write(G3.nodes)
+    net3 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
+    net3.from_nx(G3)
+    net3.save_graph(f'pyvis_graph.html')
+    HtmlFile3 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
+    components.html(HtmlFile3.read(), height=435)
+  else:
+    pass
+    
   #Transactions only involve third layer subjects
   thirdlayer_acct = pd.concat([df_edge_secondlayer['Orig'], df_edge_secondlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
   df_edge_thirdlayer = df_edge.loc[df_edge['Orig'].isin(thirdlayer_acct) | df_edge['Dest'].isin(thirdlayer_acct)]
@@ -143,4 +149,4 @@ else:
   pass
    
 #End of Script  
-  
+ 
