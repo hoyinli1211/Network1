@@ -101,7 +101,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   newonusN_3 = len(secondlayer_new_onus_acct)
   remarks3 = str(newonusN_3) + ' additional customer(s) were identified [' + ','.join(secondlayer_new_onus_acct) + ']'
   
-  if taskRadio = '1. Transaction(s) involved selected subject(s) only':
+  if taskRadio == '1. Transaction(s) involved selected subject(s) only':
     st.title('1. Fraudulent transaction(s) involved selected on-us and off-us account(s)')
     st.write(remarks_1)
     st.write(df_edge_fraud)
@@ -112,7 +112,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     net1.save_graph(f'pyvis_graph.html')
     HtmlFile1 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
     components.html(HtmlFile1.read(), height=435)
-  elif taskRadio = '2. Direct Transaction(s) with selected subject(s)':
+  elif taskRadio == '2. Direct Transaction(s) with selected subject(s)':
     st.title('2. Direct Transaction(s) with selected subject(s)')
     st.write(remarks2)
     st.write(df_edge_firstlayer)
@@ -125,7 +125,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     net2.save_graph(f'pyvis_graph.html')
     HtmlFile2 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
     components.html(HtmlFile2.read(), height=435)
-  elif taskRadio = '3. Indirect Transaction(s) with selected subject(s) - first layer expand':
+  elif taskRadio == '3. Indirect Transaction(s) with selected subject(s) - first layer expand':
     st.title('2. Indirect Transaction(s) with selected subject(s)')
     st.write(remarks3)
     st.write(df_edge_secondlayer)
