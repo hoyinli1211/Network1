@@ -77,7 +77,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   fraudlayer_acct = selected_onus_acct + selected_offus_acct
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
   df_node_fraud = pd.DataFrame(fraudlayer_acct, columns=['name'])
-  df_node_fraud['type'] = df_node_fraud['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else 'offus Orig')
+  df_node_fraud['label'] = df_node_fraud['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else 'offus Orig')
   df_node_fraud['color'] = df_node_fraud['name'].apply(lambda x: 'red' if x in selected_onus_acct else 'purple')
     
   st.write(df_node_fraud)
@@ -112,6 +112,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     st.write(df_edge_fraud)
     G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
     nx.set_node_attributes(G1, df_node_fraud.set_index('name')['color'].to_dict(), 'color')
+    nx.set_node_attributes(G2, df_node.set_index('name')['label'].to_dict(), 'label')
     net1 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
     # Take Networkx graph and translate it to a PyVis graph format
     net1.from_nx(G1)
@@ -125,7 +126,6 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
     #nx.set_node_attributes(G2, dict(G2.degree), 'size')
     nx.set_node_attributes(G2, df_node.set_index('name')['color'].to_dict(), 'color')
-    nx.set_node_attributes(G2, df_node.set_index('name')['type'].to_dict(), 'type')
     net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
     net2.from_nx(G2)
     net2.save_graph(f'pyvis_graph.html')
