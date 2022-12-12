@@ -131,7 +131,6 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     G3 = nx.from_pandas_edgelist(df_edge_secondlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
     #nx.set_node_attributes(G2, dict(G2.degree), 'size')
     nx.set_node_attributes(G3, pd.Series(['blue','red','red','orange','blue','blue','orange']).to_dict(), 'color')
-    st.write(G3.nodes)
     net3 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
     net3.from_nx(G3)
     net3.save_graph(f'pyvis_graph.html')
