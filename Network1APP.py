@@ -76,8 +76,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   #Transactions only involve between two selected subjects
   fraudlayer_acct = selected_onus_acct + selected_offus_acct
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
-  df_node_fraud = pd.DataFrame(data={'name': [selected_onus_acct + selected_offus_acct]})
-  st.write(type(selected_onus_acct))
+  df_node_fraud = pd.DataFrame(selected_onus_acct, columns=['name'])
+  st.write(df_node_fraud)
   onusN_1 = len(selected_onus_acct)
   offusN_1 = len(selected_offus_acct)
   amt_1 = df_edge_fraud['Amount'].sum()
