@@ -96,7 +96,6 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   df_node_firstlayer = pd.DataFrame(firstlayer_acct + firstlayer_new_onus_acct, columns=['name'])
   df_node_firstlayer['title'] = df_node_firstlayer['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else ('offus Orig' if x in selected_offus_acct else ('onus 1st' if x in firstlayer_new_onus_acct else 'offus 1st')))
   df_node_firstlayer['color'] = df_node_firstlayer['name'].apply(lambda x: 'red' if x in selected_onus_acct else ('purple' if x in selected_offus_acct else ('orange' if x in firstlayer_new_onus_acct else 'blue')))
-  st.write(df_node_firstlayer)
   newonusN_2 = len(firstlayer_new_onus_acct)
   remarks2 = str(newonusN_2) + ' additional customer(s) were identified [' + ','.join(firstlayer_new_onus_acct) + ']'
 
@@ -113,6 +112,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   df_node_secondlayer = pd.DataFrame(secondlayer_acct + secondlayer_new_onus_acct, columns=['name'])
   df_node_secondlayer['title'] = df_node_secondlayer['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else ('offus Org' if x in selected_offus_acct else ('onus 1st' if x in firstlayer_new_onus_acct else ('offus 1st' if x in firstlayer_offus_acct else ('onus 2nd' if x in secondlayer_new_onus_acct else 'offus 2nd')))))
   df_node_secondlayer['color'] = df_node_secondlayer['name'].apply(lambda x: 'red' if x in selected_onus_acct else ('purple' if x in selected_offus_acct else ('orange' if x in firstlayer_new_onus_acct else ('blue' if x in firstlayer_offus_acct else ('yellow' if x in secondlayer_new_onus_acct else 'blue')))))
+  st.write(df_node_secondlayer)
   newonusN_3 = len(secondlayer_new_onus_acct)
   remarks3 = str(newonusN_3) + ' additional customer(s) were identified [' + ','.join(secondlayer_new_onus_acct) + ']'
   
