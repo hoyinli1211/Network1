@@ -106,10 +106,10 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     st.write(remarks_1)
     st.write(df_edge_fraud)
     G1 = nx.from_pandas_edgelist(df=df_edge_fraud, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
-    nx.set_node_attributes(G1, )
+    nx.set_node_attributes(G1, df_node.set_index('name')['color'].to_dict(), 'color')
     net1 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
     # Take Networkx graph and translate it to a PyVis graph format
-    net1.from_nx(G1, df_node.set_index('name')['color'].to_dict(), 'color')
+    net1.from_nx(G1)
     net1.save_graph(f'pyvis_graph.html')
     HtmlFile1 = open(f'pyvis_graph.html', 'r', encoding='utf-8')
     components.html(HtmlFile1.read(), height=435)
