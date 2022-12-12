@@ -107,6 +107,9 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
                          df_edge_secondlayer.loc[df_edge_secondlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
   secondlayer_onus_acct = secondlayer_onus_acct.tolist()
   secondlayer_new_onus_acct = list(set(secondlayer_onus_acct)-set(firstlayer_onus_acct))
+  secondlayer_offus_acct = pd.concat([df_edge_secondlayer.loc[df_edge_secondlayer['Orig.Bank']!='on-us']['Orig'].drop_duplicates(),
+                          df_edge_secondlayer.loc[df_edge_secondlayer['Dest.Bank']!='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
+  secondlayer_offus_acct = secondlayer_offus_acct.tolist()
   df_node_secondlayer = pd.DataFrame(secondlayer_acct + secondlayer_new_onus_acct, columns=['name'])
   df_node_secondlayer['title'] = df_node_secondlayer['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else ('offus Org' if x in selected_offus_acct else ('onus 1st' if x in firstlayer_new_onus_acct else ('offus 1st' if x in firstlayer_offus_acct else ('onus 2nd' if x in secondlayer_new_onus_acct else 'offus 2nd')))))
   df_node_secondlayer['color'] = df_node_secondlayer['name'].apply(lambda x: 'red' if x in selected_onus_acct else ('purple' if x in selected_offus_acct else ('orange' if x in firstlayer_new_onus_acct else ('blue' if x in firstlayer_offus_acct else ('yellow' if x in secondlayer_new_onus_acct else 'blue')))))
