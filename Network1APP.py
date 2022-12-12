@@ -101,6 +101,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
 
   #Expand 1 further layer
   secondlayer_acct = pd.concat([df_edge_firstlayer['Orig'], df_edge_firstlayer['Dest']], ignore_index=True, axis=0).drop_duplicates().rename('name')
+  secondlayer_acct = secondlayer_acct.tolist()
   df_edge_secondlayer = df_edge.loc[df_edge['Orig'].isin(secondlayer_acct) | df_edge['Dest'].isin(secondlayer_acct)]
   secondlayer_onus_acct = pd.concat([df_edge_secondlayer.loc[df_edge_secondlayer['Orig.Bank']=='on-us']['Orig'].drop_duplicates(),
                          df_edge_secondlayer.loc[df_edge_secondlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
