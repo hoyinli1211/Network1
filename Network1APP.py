@@ -93,6 +93,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   firstlayer_new_onus_acct = list(set(firstlayer_onus_acct)-set(fraudlayer_acct))
   firstlayer_offus_acct = pd.concat([df_edge_firstlayer.loc[df_edge_firstlayer['Orig.Bank']!='on-us']['Orig'].drop_duplicates(),
                           df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']!='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
+  st.write(selected_offus_acct)
   df_node_firstlayer = pd.DataFrame(firstlayer_onus_acct + firstlayer_new_onus_acct, columns=['name'])
   df_node_firstlayer['title'] = df_node_firstlayer['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else ('offus Org' if x in selected_offus_acct else ('onus 1st' if x in firstlayer_new_onus_acct else 'offus 1st')))
   df_node_firstlayer['color'] = df_node_firstlayer['name'].apply(lambda x: 'red' if x in selected_onus_acct else ('purple' if x in selected_offus_acct else ('orange' if x in firstlayer_new_onus_acct else 'blue')))
