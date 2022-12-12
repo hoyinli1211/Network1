@@ -55,7 +55,7 @@ offus_list = df_offus['name']
 #selected_acct = st.multiselect('Select acct(s) to visualize', acct_list)
 selected_onus_acct = st.multiselect('Select on-us acct(s) to visualize', onus_list, ['A001'])
 selected_offus_acct = st.multiselect('Select off-us acct(s) to visualize', offus_list, ['V001'])
-
+st.write(selected_offus_acct)
 #Amount threshold slider
 threshold_amt = st.slider(label='Transaction amount minimum threshold (inclusive >=)', 
                           min_value=0, 
