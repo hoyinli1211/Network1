@@ -79,8 +79,6 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   df_node_fraud = pd.DataFrame(fraudlayer_acct, columns=['name'])
   df_node_fraud['title'] = df_node_fraud['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else 'offus Orig')
   df_node_fraud['color'] = df_node_fraud['name'].apply(lambda x: 'red' if x in selected_onus_acct else 'purple')
-    
-  st.write(df_node_fraud)
   onusN_1 = len(selected_onus_acct)
   offusN_1 = len(selected_offus_acct)
   amt_1 = df_edge_fraud['Amount'].sum()
@@ -93,6 +91,9 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
                          df_edge_firstlayer.loc[df_edge_firstlayer['Dest.Bank']=='on-us']['Dest'].drop_duplicates()], axis=0).drop_duplicates().rename('name')
   firstlayer_onus_acct = firstlayer_onus_acct.tolist()
   firstlayer_new_onus_acct = list(set(firstlayer_onus_acct)-set(fraudlayer_acct))
+  df_node_firstlayer = pd.DataFrame(firstlayer_onus_acct + firstlayer_new_onus_acct, columns=['name'])
+  df_node_fraud['title'] = df_node_fraud['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else ('offus Org' if x in selected_offus_acct else ('onus 1st' if x in firstlayer_onus_acct else 'offus 1st')))
+  df_node_fraud['color'] = df_node_fraud['name'].apply(lambda x: 'red' if x in selected_onus_acct else ('purple' if x in selected_offus_acct else ('orange' if x in firstlayer_onus_acct else 'blue')))
   newonusN_2 = len(firstlayer_new_onus_acct)
   remarks2 = str(newonusN_2) + ' additional customer(s) were identified [' + ','.join(firstlayer_new_onus_acct) + ']'
 
@@ -125,7 +126,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
     st.write(df_edge_firstlayer)
     G2 = nx.from_pandas_edgelist(df_edge_firstlayer, source='Orig', target='Dest', edge_attr=['weight', 'title'], create_using=nx.DiGraph())
     #nx.set_node_attributes(G2, dict(G2.degree), 'size')
-    nx.set_node_attributes(G2, df_node.set_index('name')['color'].to_dict(), 'color')
+    nx.set_node_attributes(G2, df_node_firstlayer.set_index('name')['color'].to_dict(), 'color')
+    nx.set_node_attributes(G2, df_node_firstlayer.set_index('name')['title'].to_dict(), 'title')
     net2 = Network(height='465px', bgcolor='#222222', font_color='white', directed=True)
     net2.from_nx(G2)
     net2.save_graph(f'pyvis_graph.html')
