@@ -39,9 +39,6 @@ df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']],
                     axis=0).drop_duplicates().rename('name').to_frame().reset_index()
 
-st.title('Transaction Data')
-st.write(df_edge)
-
 #Define show first layer only, or second layer as well
 #nlayer = st.radio("Number of layer",
 #                 ('first layer only', 'with second layer'))
@@ -164,5 +161,8 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   
 else:
   pass
-   
+
+st.title('Transaction Data')
+st.write(df_edge)
+
 #End of Script  
