@@ -39,10 +39,6 @@ df_offus = pd.concat([df_edge.loc[df_edge['Orig.Bank']!='on-us']['Orig'],
                     df_edge.loc[df_edge['Dest.Bank']!='on-us']['Dest']],
                     axis=0).drop_duplicates().rename('name').to_frame().reset_index()
 
-#Define show first layer only, or second layer as well
-#nlayer = st.radio("Number of layer",
-#                 ('first layer only', 'with second layer'))
-
 #Define list of selection options
 acct_list = df_node['name']
 onus_list = df_onus['name']
@@ -65,6 +61,8 @@ taskRadio = st.radio(label='Area of interest',
                     options = ['1. Transaction(s) involved selected subject(s) only',
                                 '2. Direct Transaction(s) with selected subject(s)',
                                 '3. Indirect Transaction(s) with selected subject(s) - first layer expand'])
+
+st.write('Hello World')
 
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
