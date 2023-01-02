@@ -62,8 +62,6 @@ taskRadio = st.radio(label='Area of interest',
                                 '2. Direct Transaction(s) with selected subject(s)',
                                 '3. Indirect Transaction(s) with selected subject(s) - first layer expand'])
 
-st.write('Hello World')
-
 if (len(selected_onus_acct)==0 and len(selected_offus_acct)==0):
   st.text('Choose at least 1 onus/offus account to get started.')
 elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
@@ -71,6 +69,7 @@ elif (len(selected_onus_acct)>0 or len(selected_offus_acct)>0):
   fraudlayer_acct = selected_onus_acct + selected_offus_acct
   df_edge_fraud = df_edge.loc[df_edge['Orig'].isin(fraudlayer_acct) & df_edge['Dest'].isin(fraudlayer_acct)]
   df_node_fraud = pd.DataFrame(fraudlayer_acct, columns=['name'])
+  st.write('This?')
   df_node_fraud['title'] = df_node_fraud['name'].apply(lambda x: 'onus Orig' if x in selected_onus_acct else 'offus Orig')
   df_node_fraud['color'] = df_node_fraud['name'].apply(lambda x: 'red' if x in selected_onus_acct else 'purple')
   onusN_1 = len(selected_onus_acct)
